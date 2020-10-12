@@ -4,7 +4,7 @@ import ClientTableHeader from './ClientTableHeader';
 import ClientTableBody from './ClientTableBody';
 import clientData from '../../data/clients.json';
 
-const ClientTable = props => {
+const ClientTableContainer = props => {
   const columnNames = [
     "Client Name",
     "Email",
@@ -40,20 +40,26 @@ const ClientTable = props => {
     updateNumSelected(toggleSelect ? rowCount : 0);
   }
 
-  const ClientTableHeaderProps 
+  const headerProps 
     = { numSelected, rowCount, onSelectAllClick, columnNames };
 
-  const tableBodyProps = { clientData, selected, fieldList, onSelectClick };
+  const bodyProps = { clientData, selected, fieldList, onSelectClick };
+
+  return <ClientTable headerProps={headerProps} bodyProps={bodyProps}/>;
+}
+
+
+const ClientTable = ({headerProps, bodyProps}) => {
 
   return (<Table>
 
     {/* Headers */}
-    <ClientTableHeader {...ClientTableHeaderProps} />
+    <ClientTableHeader {...headerProps} />
 
     {/* Body */}
-    <ClientTableBody {...tableBodyProps} />
+    <ClientTableBody {...bodyProps} />
     
   </Table>);
 }
 
-export default ClientTable;     
+export default ClientTableContainer;     
