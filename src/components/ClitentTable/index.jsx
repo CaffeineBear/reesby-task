@@ -1,7 +1,6 @@
 import React from 'react';
-// import { DataGrid } from '@material-ui/data-grid';
 import { Table, TableHead, TableBody, TableRow, TableCell} from '@material-ui/core'
-import clientData from '../data/clients.json';
+import clientData from '../../data/clients.json';
 
 const ClientTable = props => {
     const columnNames = [
