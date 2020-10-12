@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Checkbox,
-  Table, TableBody, TableRow, TableCell
-} from '@material-ui/core';
-import TableHeader from './TableHeader';
+import { Table } from '@material-ui/core';
+import ClientTableHeader from './ClientTableHeader';
+import ClientTableBody from './ClientTableBody';
 import clientData from '../../data/clients.json';
 
 const ClientTable = props => {
@@ -42,38 +40,19 @@ const ClientTable = props => {
     updateNumSelected(toggleSelect ? rowCount : 0);
   }
 
-  const tableHeaderProps 
+  const ClientTableHeaderProps 
     = { numSelected, rowCount, onSelectAllClick, columnNames };
+
+  const tableBodyProps = { clientData, selected, fieldList, onSelectClick };
 
   return (<Table>
 
     {/* Headers */}
-    <TableHeader {...tableHeaderProps} />
-     
+    <ClientTableHeader {...ClientTableHeaderProps} />
 
     {/* Body */}
-    <TableBody>
-      {clientData.map((currData, indexI) => {
-        return (currData && <TableRow key={`ClientRow${indexI}`} >
-
-          {/* Checkbox */}
-          <TableCell padding="checkbox" key={`ClientRow${indexI}-Checkbox`}>
-            <Checkbox
-              checked={selected[indexI]}
-              onChange={() => { onSelectClick(indexI) }}
-              inputProps={{ 'aria-label': 'select current client' }}
-            />
-          </TableCell>
-
-          {/* Table Contents */}
-          {fieldList.map((currField) => {
-            return (<TableCell key={`ClientRow${indexI}-${currField}`} >
-              {currData[currField]}
-            </TableCell>);
-          })}
-        </TableRow>);
-      })}
-    </TableBody>
+    <ClientTableBody {...tableBodyProps} />
+    
   </Table>);
 }
 
