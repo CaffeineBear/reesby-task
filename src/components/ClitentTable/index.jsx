@@ -19,7 +19,8 @@ const ClientTableContainer = props => {
     "clientEmail",
     "clientPersonalPhone",
     "clientIndustry",
-    "clientPocName"
+    "clientPocName",
+    "clientWebsite"
   ];
 
   const rowCount = clientData.length;
