@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Checkbox,
-  Table, TableHead, TableBody, TableRow, TableCell
-} from '@material-ui/core'
+  Table, TableBody, TableRow, TableCell
+} from '@material-ui/core';
+import TableHeader from './TableHeader';
 import clientData from '../../data/clients.json';
 
 const ClientTable = props => {
@@ -41,26 +42,14 @@ const ClientTable = props => {
     updateNumSelected(toggleSelect ? rowCount : 0);
   }
 
+  const tableHeaderProps 
+    = { numSelected, rowCount, onSelectAllClick, columnNames };
+
   return (<Table>
 
     {/* Headers */}
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all clients' }}
-          />
-        </TableCell>
-        {columnNames.map(currColumn => {
-          return (<TableCell key={`ClientTableColumn${currColumn}`}>
-            {currColumn}
-          </TableCell>);
-        })}
-      </TableRow>
-    </TableHead>
+    <TableHeader {...tableHeaderProps} />
+     
 
     {/* Body */}
     <TableBody>
