@@ -39,9 +39,11 @@ const ClientManagement = props => {
                 NEW CLIENT
               </Button>
             </Grid>
-            <Hidden mdUp>
-              <Grid item>
-                  {showFilterButton}
+
+            {/* Filter button */}
+            <Hidden smUp >
+              <Grid item style={{marginLeft: 'auto'}}>
+                {showFilterButton}
               </Grid>
             </Hidden>
           </Grid>
@@ -87,28 +89,26 @@ const ClientManagement = props => {
       {/* PageContent */}
       <CardContent>
         <Paper elevation={3} >
-          {/* <Grid container direction='column' > */}
 
-            {/* Table title with 'More' button */}
-            <Grid container direction='row' justify='space-between' 
-              alignItems='center' style={{padding: '20px'}} >
-              <Grid item xs={6}>
-                <Typography variant='h6' align='left'>
-                  All Contents
-                </Typography>
-              </Grid>
-              <Grid item style={{marginLeft: 'auto'}}>
-                <IconButton>
-                  <MoreVertIcon />
-                </IconButton>
-              </Grid>
+          {/* Table title with 'More' button */}
+          <Grid container direction='row' justify='space-between' 
+            alignItems='center' style={{padding: '20px'}} >
+            <Grid item xs={6}>
+              <Typography variant='h6' align='left'>
+                All Contents
+              </Typography>
             </Grid>
+            <Grid item style={{marginLeft: 'auto'}}>
+              <IconButton>
+                <MoreVertIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
 
-            {/* Actual Table */}
-            <div style={{'overflowX':'auto'}}>
-              <ClientTable />
-            </div>
-          {/* </Grid> */}
+          {/* Actual Table */}
+          <div style={{'overflowX':'auto'}}>
+            <ClientTable />
+          </div>
         </Paper>
       </CardContent>
     </Card>
