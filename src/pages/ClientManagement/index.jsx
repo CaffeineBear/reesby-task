@@ -1,8 +1,11 @@
 import React from 'react';
-import { Container, Card, CardContent, Typography, Grid, Button, OutlinedInput, Paper, IconButton, Hidden } from '@material-ui/core';
+import { 
+  Container, Card, CardContent, Typography, Grid, Button, Paper, IconButton, 
+  Hidden } 
+from '@material-ui/core';
 import ClientTable from '../../components/ClitentTable';
+import GridItemSearchBar from '../../components/GridItemSearchBar';
 import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -40,7 +43,7 @@ const ClientManagement = props => {
               </Button>
             </Grid>
 
-            {/* Filter button */}
+            {/* Filter button showing only on mobile version*/}
             <Hidden smUp >
               <Grid item style={{marginLeft: 'auto'}}>
                 {showFilterButton}
@@ -55,28 +58,9 @@ const ClientManagement = props => {
         {/* Toolbar */}
         <Grid container justify='flex-start' spacing={2}>
 
-          {/* Search Bar with buttons */}
-          <Grid item md={3} sm={5} xs={12} container justify='flex-start'>
-            <OutlinedInput
-              id="client-management-searchbar"
-              startAdornment={<SearchIcon />}
-              margin='dense'
-            />
-          </Grid>
-          <Grid item sm={4} xs={12} container spacing={2} >
-            <Grid item>
-              <Button variant='contained' >
-                SEARCH
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant='contained' >
-                CLEAR
-              </Button>
-            </Grid>
-          </Grid>
+          <GridItemSearchBar placeholder='Search...' />
 
-          {/* Filter Button */}
+          {/* Filter Button showing only on tablet or pc*/}
           <Grid item style={{marginLeft: 'auto'}}>
             <Hidden xsDown>
               {showFilterButton}
