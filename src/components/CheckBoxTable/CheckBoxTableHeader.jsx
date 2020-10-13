@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox, TableHead, TableRow, TableCell } from '@material-ui/core';
 
-const TableHeader = props => {
+const CheckBoxTableHeader = props => {
   const { numSelected, rowCount, onSelectAllClick, columnNames } = props;
   return (<React.Fragment>
     <TableHead>
@@ -24,4 +24,4 @@ const TableHeader = props => {
   </React.Fragment>);
 }
 
-export default TableHeader;
+export default CheckBoxTableHeader;

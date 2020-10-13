@@ -1,11 +1,11 @@
 import React from 'react';
 import { Checkbox, TableBody, TableRow, TableCell } from '@material-ui/core';
 
-const ClientTableBody = props => {
-  const { clientData, selected, fieldList, onSelectClick } = props;
+const CheckBoxTableBody = props => {
+  const { tableData, selected, fieldList, onSelectClick } = props;
   return (<React.Fragment>
     <TableBody>
-      {clientData.map((currData, index) => {
+      {tableData.map((currData, index) => {
         return (currData && <TableRow key={`ClientRow${index}`} >
 
           {/* Checkbox */}
@@ -29,4 +29,4 @@ const ClientTableBody = props => {
   </React.Fragment>);
 }
 
-export default ClientTableBody;
+export default CheckBoxTableBody;

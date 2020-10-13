@@ -3,13 +3,36 @@ import {
   Container, Card, CardContent, Typography, Grid, Button, Paper, IconButton, 
   Hidden } 
 from '@material-ui/core';
-import ClientTable from '../../components/ClitentTable';
+import ClientTable from '../../components/CheckBoxTable';
 import GridItemSearchBar from '../../components/GridItemSearchBar';
 import AddIcon from '@material-ui/icons/Add';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import clientData from '../../data/clients.json';
 
 const ClientManagement = props => {
+
+  const columnNames = [
+    "Client Name",
+    "Email",
+    "Phone",
+    "Industry",
+    "Point of Contact",
+    "Website"
+  ];
+
+  const fieldList = [
+    "clientName",
+    "clientEmail",
+    "clientPersonalPhone",
+    "clientIndustry",
+    "clientPocName",
+    "clientWebsite"
+  ];
+
+  const rowCount = clientData.length;
+  const tableData = clientData;
+  const clientTableProps = {rowCount, fieldList, columnNames, tableData};
 
   const showFilterButton = (
     <Button variant='outlined' color='primary' startIcon={<FilterListIcon/>}>
@@ -91,7 +114,7 @@ const ClientManagement = props => {
 
           {/* Actual Table */}
           <div style={{'overflowX':'auto'}}>
-            <ClientTable />
+            <ClientTable {...clientTableProps} />
           </div>
         </Paper>
       </CardContent>
