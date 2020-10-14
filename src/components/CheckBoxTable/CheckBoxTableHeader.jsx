@@ -6,14 +6,14 @@ import React from 'react';
 import { Checkbox, TableHead, TableRow, TableCell } from '@material-ui/core';
 
 const CheckBoxTableHeader = props => {
-  const { numSelected, rowCount, onSelectAllClick, columnNames } = props;
+  const { numSelected, totalRow, onSelectAllClick, columnNames } = props;
   return (<React.Fragment>
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
+            indeterminate={numSelected > 0 && numSelected < totalRow}
+            checked={totalRow > 0 && numSelected === totalRow}
             onChange={onSelectAllClick}
             inputProps={{ 'aria-label': 'select all clients' }}
           />

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Table } from '@material-ui/core';
+import { Table, TablePagination  } from '@material-ui/core';
 import CheckBoxTableHeader from './CheckBoxTableHeader';
 import CheckBoxTableBody from './CheckBoxTableBody';
 
 const CheckBoxTableContainer = props => {
   
   const { 
-    rowCount, fieldList,  columnNames, tableData, selected, updateSelected
+    fieldList,  columnNames, tableData, selected, updateSelected,
+    pageInfo, setPageInfo
   } = props;
+
+  const { totalRow } = pageInfo;
   
   const [numSelected, updateNumSelected] = useState(0);
 
@@ -20,22 +23,40 @@ const CheckBoxTableContainer = props => {
   }
 
   const onSelectAllClick = () => {
-    const toggleSelect = !(numSelected === rowCount);
-    updateSelected(new Array(rowCount).fill(toggleSelect));
-    updateNumSelected(toggleSelect ? rowCount : 0);
+    const toggleSelect = !(numSelected === totalRow);
+    updateSelected(new Array(totalRow).fill(toggleSelect));
+    updateNumSelected(toggleSelect ? totalRow : 0);
   }
 
   const headerProps 
-    = { numSelected, rowCount, onSelectAllClick, columnNames };
+    = { numSelected, totalRow, onSelectAllClick, columnNames };
 
-  const bodyProps = { tableData, selected, fieldList, onSelectClick };
+  const bodyProps = { 
+    tableData, selected, fieldList, onSelectClick, pageInfo
+  };
 
-  return <CheckBoxTable headerProps={headerProps} bodyProps={bodyProps}/>;
+  const handleChangePage = (event, newPage) => {
+    setPageInfo( prevInfo => {
+      return({
+        ...prevInfo,
+        currPage: newPage
+      });
+    });
+  };
+
+  const pageProps = {
+    pageInfo,
+    handleChangePage
+  }
+
+  return <CheckBoxTable headerProps={headerProps} bodyProps={bodyProps}
+    pageProps={pageProps}
+  />;
 }
 
 
-const CheckBoxTable = ({headerProps, bodyProps}) => {
-
+const CheckBoxTable = ({headerProps, bodyProps, pageProps}) => {
+  const { pageInfo, handleChangePage } = pageProps;
   return (<Table>
 
     {/* Headers */}
@@ -43,6 +64,14 @@ const CheckBoxTable = ({headerProps, bodyProps}) => {
 
     {/* Body */}
     <CheckBoxTableBody {...bodyProps} />
+
+    <TablePagination 
+      rowsPerPageOptions={5}
+      count={pageInfo.totalRow}
+      rowsPerPage={pageInfo.rowsPerPage}
+      page={pageInfo.currPage}
+      onChangePage={handleChangePage}
+    />
     
   </Table>);
 }

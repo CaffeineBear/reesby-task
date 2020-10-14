@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Container, Card, CardContent, Typography, Button, Paper} from '@material-ui/core';
+import { Container, Card, CardContent, Typography, Button, Paper } from '@material-ui/core';
 import ClientTable from '../../components/CheckBoxTable';
 import PageHeader from './PageHeader';
 import ToolBar from './ToolBar';
@@ -32,11 +32,26 @@ const ClientManagement = props => {
     "clientWebsite"
   ];
 
-  const rowCount = clientData.length;
+  const totalRowCount = clientData.length;
   const tableData = clientData;
-  const [selected, updateSelected] = useState(new Array(rowCount).fill(false));
-  const clientTableProps 
-    = {rowCount, fieldList, columnNames, tableData, selected, updateSelected};
+  const [selected, updateSelected] = useState(new Array(totalRowCount).fill(false));
+
+  const [ pageInfo, setPageInfo ] = useState({
+    rowsPerPage: 5,
+    currPage: 0,
+    totalRow: totalRowCount,
+    totalPageNumber: Math.ceil(totalRowCount / 5)
+  });
+
+  const clientTableProps = {
+    fieldList, 
+    columnNames, 
+    tableData, 
+    selected, 
+    updateSelected,
+    pageInfo,
+    setPageInfo
+  };
 
   const showFilterButton = (
     <Button variant='outlined' color='primary' startIcon={<FilterListIcon/>}>
@@ -63,7 +78,14 @@ const ClientManagement = props => {
       </CardContent>
 
       {/* Page Content */}
-      <CardContent>
+      <CardContent style={{justifyContent: 'flex-start'}}>
+
+        <Typography variant="body2" align="left" 
+          style={{ color: 'grey', float: 'left' }} >
+          {totalRowCount} records found. Page {pageInfo.currPage + 1} of {pageInfo.totalPageNumber}
+        </Typography>
+        <br />
+
         <Paper elevation={3} >
 
           {/* Table title with 'More' button */}

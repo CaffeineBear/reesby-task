@@ -6,24 +6,35 @@ import React from 'react';
 import { Checkbox, TableBody, TableRow, TableCell } from '@material-ui/core';
 
 const CheckBoxTableBody = props => {
-  const { tableData, selected, fieldList, onSelectClick } = props;
+  const { 
+    tableData, selected, fieldList, onSelectClick,
+    pageInfo: { currPage, rowsPerPage }
+  } = props;
+
+  // Slice table to obtain the viewing page table.
+  const startingIndex = (currPage)*rowsPerPage;
+  const endingIndex   = startingIndex + rowsPerPage;
+  const viewingData = tableData.slice( startingIndex, endingIndex);
+
   return (<React.Fragment>
     <TableBody>
-      {tableData.map((currData, index) => {
-        return (currData && <TableRow key={`ClientRow${index}`} >
+      {viewingData.map((currData, currIndex) => {
+        const indexInWholeTable = startingIndex + currIndex;
+
+        return (currData && <TableRow key={`ClientRow${indexInWholeTable}`} >
 
           {/* Checkbox */}
-          <TableCell padding="checkbox" key={`ClientRow${index}-Checkbox`}>
+          <TableCell padding="checkbox" key={`ClientRow${indexInWholeTable}-Checkbox`}>
             <Checkbox
-              checked={selected[index]}
-              onChange={() => { onSelectClick(index) }}
+              checked={selected[indexInWholeTable]}
+              onChange={() => { onSelectClick(indexInWholeTable) }}
               inputProps={{ 'aria-label': 'select current client' }}
             />
           </TableCell>
 
           {/* Table Contents */}
           {fieldList.map((currField) => {
-            return (<TableCell key={`ClientRow${index}-${currField}`} >
+            return (<TableCell key={`ClientRow${indexInWholeTable}-${currField}`} >
               {currData[currField]}
             </TableCell>);
           })}
