@@ -1,9 +1,11 @@
+/**
+ * This is a subcomponent of ClientManagement page. This will be placed above
+ * table with 'More' button at the right handside.
+ */
 import React from 'react';
 import { Grid, Typography, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-
-/* Table title with 'More' button */
 const TableTitle = props => {
   return (
     <Grid container direction='row' justify='space-between' 
@@ -21,6 +23,5 @@ const TableTitle = props => {
     </Grid>
   );
 }
-
 
 export default TableTitle;

@@ -1,3 +1,7 @@
+/**
+ * This is a table header for the table with check box. Clicking the checkbox at
+ * this component will toggle all selections of table rows.
+ */
 import React from 'react';
 import { Checkbox, TableHead, TableRow, TableCell } from '@material-ui/core';
 

@@ -1,3 +1,8 @@
+/**
+ * This is a search bar component which asumes that it is wrapped with <Grid> 
+ * component with 'container' property. This component also has Search and Clear
+ * buttons.
+ */
 import React, { useState } from 'react';
 import { Grid, OutlinedInput, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';

@@ -1,3 +1,7 @@
+/**
+ * This component contains search bar and filter button (on non-mobile) below 
+ * page header in ClientManagement page.
+ */
 import React from 'react';
 import { Grid, Hidden } from '@material-ui/core';
 import GridItemSearchBar from '../../components/GridItemSearchBar';

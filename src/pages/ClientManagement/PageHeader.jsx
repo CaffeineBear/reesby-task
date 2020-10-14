@@ -1,3 +1,7 @@
+/**
+ * This is a titled page header which contains action buttons such as 
+ * 'new client' and 'filter'. 
+ */
 import React from 'react';
 import { Grid, Typography, Button, Hidden } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';

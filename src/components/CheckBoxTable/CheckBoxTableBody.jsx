@@ -1,3 +1,7 @@
+/**
+ * This component is a table body which contains the check box at the front.
+ */
+
 import React from 'react';
 import { Checkbox, TableBody, TableRow, TableCell } from '@material-ui/core';
 

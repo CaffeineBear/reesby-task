@@ -5,8 +5,10 @@ import CheckBoxTableBody from './CheckBoxTableBody';
 
 const CheckBoxTableContainer = props => {
   
-  const { rowCount, fieldList,  columnNames, tableData} = props;
-  const [selected, updateSelected] = useState(new Array(rowCount).fill(false));
+  const { 
+    rowCount, fieldList,  columnNames, tableData, selected, updateSelected
+  } = props;
+  
   const [numSelected, updateNumSelected] = useState(0);
 
   const onSelectClick = (index) => {

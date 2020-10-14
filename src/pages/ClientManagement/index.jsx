@@ -1,4 +1,9 @@
-import React from 'react';
+/**
+ * This is a ClientManagement page which has table with action buttons and search
+ * bar. 
+ */
+
+import React, { useState } from 'react';
 import { Container, Card, CardContent, Typography, Button, Paper} from '@material-ui/core';
 import ClientTable from '../../components/CheckBoxTable';
 import PageHeader from './PageHeader';
@@ -29,7 +34,9 @@ const ClientManagement = props => {
 
   const rowCount = clientData.length;
   const tableData = clientData;
-  const clientTableProps = {rowCount, fieldList, columnNames, tableData};
+  const [selected, updateSelected] = useState(new Array(rowCount).fill(false));
+  const clientTableProps 
+    = {rowCount, fieldList, columnNames, tableData, selected, updateSelected};
 
   const showFilterButton = (
     <Button variant='outlined' color='primary' startIcon={<FilterListIcon/>}>
