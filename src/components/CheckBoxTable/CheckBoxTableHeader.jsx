@@ -6,7 +6,9 @@ import React from 'react';
 import { Checkbox, TableHead, TableRow, TableCell } from '@material-ui/core';
 
 const CheckBoxTableHeader = props => {
-  const { numSelected, totalRow, onSelectAllClick, columnNames } = props;
+  const { 
+    numSelected, totalRow, onSelectAllClick, columnNames, actionExist 
+  } = props;
   return (<React.Fragment>
     <TableHead>
       <TableRow>
@@ -19,10 +21,14 @@ const CheckBoxTableHeader = props => {
           />
         </TableCell>
         {columnNames.map(currColumn => {
-          return (<TableCell key={`ClientTableColumn${currColumn}`}>
+          return (<TableCell key={`CheckBoxTableCol${currColumn}`}>
             {currColumn}
           </TableCell>);
         })}
+
+        {/* If there are action button exists at the end, we add empty cell */}
+        { actionExist && <TableCell key={`CheckBoxTableColEmpty`} /> }
+
       </TableRow>
     </TableHead>
   </React.Fragment>);

@@ -8,8 +8,15 @@ import { Checkbox, TableBody, TableRow, TableCell } from '@material-ui/core';
 const CheckBoxTableBody = props => {
   const { 
     tableData, selected, fieldList, onSelectClick,
-    pageInfo: { currPage, rowsPerPage }
+    pageInfo: { currPage, rowsPerPage },
+    actionComponent, onActionEvent
   } = props;
+
+  const ActionComponent = (actionComponentProps) => {
+    return <div {...actionComponentProps}>
+      {actionComponent}
+    </div>
+  }
 
   // Slice table to obtain the viewing page table.
   const startingIndex = (currPage)*rowsPerPage;
@@ -38,6 +45,17 @@ const CheckBoxTableBody = props => {
               {currData[currField]}
             </TableCell>);
           })}
+
+          {/* Optional Clickable Action at the end */}  
+          { ( actionComponent && typeof onActionEvent === 'function' ) &&
+            (<TableCell>
+              <ActionComponent onClick={ (e) =>  {
+                  return onActionEvent(e, indexInWholeTable);
+                } }
+              />
+            </TableCell>)
+          }
+
         </TableRow>);
       })}
     </TableBody>

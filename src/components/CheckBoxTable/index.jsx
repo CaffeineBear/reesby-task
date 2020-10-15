@@ -7,7 +7,7 @@ const CheckBoxTableContainer = props => {
   
   const { 
     fieldList,  columnNames, tableData, selected, updateSelected,
-    pageInfo, setPageInfo
+    pageInfo, setPageInfo, rowActionComponent, onRowActionEvent
   } = props;
 
   const { totalRow } = pageInfo;
@@ -28,11 +28,9 @@ const CheckBoxTableContainer = props => {
     updateNumSelected(toggleSelect ? totalRow : 0);
   }
 
-  const headerProps 
-    = { numSelected, totalRow, onSelectAllClick, columnNames };
-
-  const bodyProps = { 
-    tableData, selected, fieldList, onSelectClick, pageInfo
+  const headerProps = { 
+    numSelected, totalRow, onSelectAllClick, columnNames, 
+    actionExist: (rowActionComponent && typeof onRowActionEvent === 'function')
   };
 
   const handleChangePage = (event, newPage) => {
@@ -42,6 +40,12 @@ const CheckBoxTableContainer = props => {
         currPage: newPage
       });
     });
+  };
+
+  const bodyProps = { 
+    tableData, selected, fieldList, onSelectClick, pageInfo, handleChangePage,
+    actionComponent: rowActionComponent,
+    onActionEvent: onRowActionEvent
   };
 
   const pageProps = {
@@ -56,24 +60,29 @@ const CheckBoxTableContainer = props => {
 
 
 const CheckBoxTable = ({headerProps, bodyProps, pageProps}) => {
-  const { pageInfo, handleChangePage } = pageProps;
-  return (<Table>
+  const { 
+    pageInfo: {totalRow, rowsPerPage, currPage},
+    handleChangePage
+  } = pageProps;
+  return (<React.Fragment>
+    <Table>
+      {/* Headers */}
+      <CheckBoxTableHeader {...headerProps} />
 
-    {/* Headers */}
-    <CheckBoxTableHeader {...headerProps} />
+      {/* Body */}
+      <CheckBoxTableBody {...bodyProps} />
+    </Table>
 
-    {/* Body */}
-    <CheckBoxTableBody {...bodyProps} />
-
+    {/* Table pagination */}
     <TablePagination 
-      rowsPerPageOptions={5}
-      count={pageInfo.totalRow}
-      rowsPerPage={pageInfo.rowsPerPage}
-      page={pageInfo.currPage}
+      component="div"
+      rowsPerPageOptions={[5]}
+      count={totalRow}
+      rowsPerPage={rowsPerPage}
+      page={currPage}
       onChangePage={handleChangePage}
     />
-    
-  </Table>);
+  </React.Fragment>);
 }
 
 export default CheckBoxTableContainer;     

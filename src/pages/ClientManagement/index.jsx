@@ -4,13 +4,14 @@
  */
 
 import React, { useState } from 'react';
-import { Container, Card, CardContent, Typography, Button, Paper } from '@material-ui/core';
+import { Container, Card, CardContent, Typography, Button, Paper, IconButton  } from '@material-ui/core';
 import ClientTable from '../../components/CheckBoxTable';
 import PageHeader from './PageHeader';
 import ToolBar from './ToolBar';
 import TableTitle from './TableTitle';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import clientData from '../../data/clients.json';
+import CreateIcon from '@material-ui/icons/Create';
 
 const ClientManagement = props => {
 
@@ -43,6 +44,14 @@ const ClientManagement = props => {
     totalPageNumber: Math.ceil(totalRowCount / 5)
   });
 
+  const handlePenClick = (e, index) => {
+    console.log(`index ${index} is clicked`);
+  }
+
+  const rowActionComponent = (<IconButton variant='contained' >
+    <CreateIcon />
+  </IconButton>);
+
   const clientTableProps = {
     fieldList, 
     columnNames, 
@@ -50,7 +59,9 @@ const ClientManagement = props => {
     selected, 
     updateSelected,
     pageInfo,
-    setPageInfo
+    setPageInfo,
+    rowActionComponent, 
+    onRowActionEvent: handlePenClick
   };
 
   const showFilterButton = (
