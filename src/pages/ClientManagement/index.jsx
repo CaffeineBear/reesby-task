@@ -3,7 +3,7 @@
  * bar. 
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Card, CardContent, Typography, Button, Paper } from '@material-ui/core';
 import ClientTable from '../../components/CheckBoxTable';
 import PageHeader from './PageHeader';
@@ -33,9 +33,9 @@ const ClientManagement = props => {
     "clientWebsite"
   ];
 
-  const totalRowCount = clientData.length;
-  const tableData = clientData;
-  const [selected, updateSelected] = useState(new Array(totalRowCount).fill(false));
+  const [ totalRowCount, updateTotalRowCount ] = useState(clientData.length);
+  const [ tableData, updateTableData ] = useState(clientData);
+  const [ selected, updateSelected ] = useState(new Array(totalRowCount).fill(false));
 
   const [ pageInfo, setPageInfo ] = useState({
     rowsPerPage: 5,
@@ -43,6 +43,34 @@ const ClientManagement = props => {
     totalRow: totalRowCount,
     totalPageNumber: Math.ceil(totalRowCount / 5)
   });
+
+  // Update table data after search 
+  const handleOnSearchSubmit = (searchingText) => {
+    const searchingTextLowerCase = searchingText.toLowerCase();
+    if( searchingText ) {
+      updateTableData(clientData.filter( currRow => {
+        return currRow.clientName.toLowerCase().includes(searchingTextLowerCase);
+      }));
+
+    } else {
+      updateTableData(clientData);
+    }
+  }
+
+  // Update page information and selected array when tableData is updated.
+  useEffect( () => {
+    const newTotalRowCount = tableData.length
+    updateTotalRowCount(newTotalRowCount);
+    updateSelected(new Array(newTotalRowCount).fill(false));
+    setPageInfo( prevInfo => {
+      return {
+        ...prevInfo,
+        currPage: 0,
+        totalRow: newTotalRowCount,
+        totalPageNumber: Math.ceil(newTotalRowCount / 5)
+      };
+    })
+  }, [tableData] );
 
   const handlePenClick = (e, index) => {
     console.log(`index ${index} is clicked`);
@@ -84,7 +112,9 @@ const ClientManagement = props => {
 
       {/* Toolbar */}
       <CardContent>
-        <ToolBar showFilterButton={showFilterButton}/>
+        <ToolBar showFilterButton={showFilterButton} 
+          onSearchSubmit={handleOnSearchSubmit}
+        />
       </CardContent>
 
       {/* Page Content */}

@@ -8,7 +8,7 @@ import { Grid, OutlinedInput, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const GridItemSearchBar = props => {
-  const { placeholder, value, onChange, onSubmit} = props;
+  const { placeholder, value, onChange, onSubmit, onKeyDown } = props;
   return ( <React.Fragment>
       {/* Search Bar with buttons */}
       <Grid item md={3} sm={5} xs={12} container justify='flex-start'>
@@ -20,6 +20,7 @@ const GridItemSearchBar = props => {
         onChange={onChange}
         value={value}
         style={{background: 'white'}}
+        onKeyDown={onKeyDown}
       />
     </Grid>
     <Grid item sm={4} xs={12} container spacing={2}  >
@@ -60,8 +61,15 @@ const GridItemSearchBarContainer = props => {
     }
   }
 
+  const handleKeyDown = e => {
+    if(e.key === "Enter" ) {
+      onSubmit(searchingValue);
+    }
+  }
+
   return <GridItemSearchBar placeholder={placeholder} value={searchingValue} 
-    onChange={handleOnChange} onSubmit={handleOnSubmit} />
+    onChange={handleOnChange} onSubmit={handleOnSubmit} onKeyDown={handleKeyDown}
+  />
 }
 
 export default GridItemSearchBarContainer

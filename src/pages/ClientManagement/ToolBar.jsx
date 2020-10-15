@@ -6,12 +6,12 @@ import React from 'react';
 import { Grid, Hidden } from '@material-ui/core';
 import GridItemSearchBar from '../../components/GridItemSearchBar';
 
-const ToolBar = ({ showFilterButton }) => {
+const ToolBar = ({ showFilterButton, onSearchSubmit }) => {
   return (
     <Grid container justify='flex-start' spacing={2}>
 
       {/* Search Bar */}
-      <GridItemSearchBar placeholder='Search...' />
+      <GridItemSearchBar placeholder='Search...' onSubmit={onSearchSubmit} />
 
       {/* Filter Button showing only on tablet or pc*/}
       <Grid item style={{marginLeft: 'auto'}}>
