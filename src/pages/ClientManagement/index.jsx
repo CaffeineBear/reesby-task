@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Container, Card, CardContent, Typography, Button, Paper, IconButton  } from '@material-ui/core';
+import { Container, Card, CardContent, Typography, Button, Paper } from '@material-ui/core';
 import ClientTable from '../../components/CheckBoxTable';
 import PageHeader from './PageHeader';
 import ToolBar from './ToolBar';
@@ -48,9 +48,8 @@ const ClientManagement = props => {
     console.log(`index ${index} is clicked`);
   }
 
-  const rowActionComponent = (<IconButton variant='contained' >
-    <CreateIcon />
-  </IconButton>);
+  const rowActionComponent = ( <Button variant='outlined' component='div' 
+    color='primary' startIcon={<CreateIcon />} /> );
 
   const clientTableProps = {
     fieldList, 
@@ -66,12 +65,12 @@ const ClientManagement = props => {
 
   const showFilterButton = (
     <Button variant='outlined' color='primary' startIcon={<FilterListIcon/>}>
-      SHOW FILTER
+      <b>SHOW FILTER</b>
     </Button>
   );
 
-  return (<Container>
-    <Card>
+  return (<Container >
+    <Card style={{backgroundColor: 'whitesmoke'}}>
       {/* Page Headers */}
       <CardContent>
         {/* Page Subheader */}

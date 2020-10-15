@@ -19,17 +19,20 @@ const GridItemSearchBar = props => {
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        style={{background: 'white'}}
       />
     </Grid>
-    <Grid item sm={4} xs={12} container spacing={2} >
+    <Grid item sm={4} xs={12} container spacing={2}  >
       <Grid item>
-        <Button variant='contained' onClick={() => onSubmit('search')} >
-          SEARCH
+        <Button variant='contained' onClick={() => onSubmit('search')} 
+          style={{background: 'white'}} >
+          <b>SEARCH</b>
         </Button>
       </Grid>
       <Grid item>
-        <Button variant='contained' onClick={() => onSubmit('clear')} >
-          CLEAR
+        <Button variant='contained' onClick={() => onSubmit('clear')} 
+          style={{background: 'white'}} >
+          <b>CLEAR</b>
         </Button>
       </Grid>
     </Grid>

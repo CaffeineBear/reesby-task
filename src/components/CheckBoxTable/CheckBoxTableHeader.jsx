@@ -10,7 +10,7 @@ const CheckBoxTableHeader = props => {
     numSelected, totalRow, onSelectAllClick, columnNames, actionExist 
   } = props;
   return (<React.Fragment>
-    <TableHead>
+    <TableHead style={{background: 'whitesmoke'}}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -22,7 +22,7 @@ const CheckBoxTableHeader = props => {
         </TableCell>
         {columnNames.map(currColumn => {
           return (<TableCell key={`CheckBoxTableCol${currColumn}`}>
-            {currColumn}
+            <i><b>{currColumn}</b></i>
           </TableCell>);
         })}
 

@@ -20,7 +20,7 @@ const PageHeader = ({ showFilterButton }) => {
       <Grid item xs={7} container direction='column' spacing={2} >
         <Grid item style={{marginLeft: 'auto'}}>
           <Button variant='contained' color='primary' startIcon={<AddIcon/>}>
-            NEW CLIENT
+            <b>NEW CLIENT</b>
           </Button>
         </Grid>
 
