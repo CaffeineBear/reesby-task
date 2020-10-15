@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TablePagination  } from '@material-ui/core';
+import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import CheckBoxTableHeader from './CheckBoxTableHeader';
 import CheckBoxTableBody from './CheckBoxTableBody';
 
@@ -65,13 +65,17 @@ const CheckBoxTable = ({headerProps, bodyProps, pageProps}) => {
     handleChangePage
   } = pageProps;
   return (<React.Fragment>
-    <Table>
-      {/* Headers */}
-      <CheckBoxTableHeader {...headerProps} />
+    <TableContainer>
+      <Table>
+        {/* Headers */}
+        <CheckBoxTableHeader {...headerProps} />
 
-      {/* Body */}
-      <CheckBoxTableBody {...bodyProps} />
-    </Table>
+        {/* Body */}
+        <CheckBoxTableBody {...bodyProps} />
+        {/* <TableFooter>
+        </TableFooter> */}
+      </Table>
+    </TableContainer>
 
     {/* Table pagination */}
     <TablePagination 

@@ -102,7 +102,7 @@ const ClientManagement = props => {
           <TableTitle />
 
           {/* Actual Table */}
-          <div style={{'overflowX':'auto'}}>
+          <div style={{width: '100%'}}>
             <ClientTable {...clientTableProps} />
           </div>
         </Paper>
