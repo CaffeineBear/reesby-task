@@ -1,3 +1,7 @@
+/**
+ * This is a table component with checkbox at front and optional action button 
+ * at the back of each row. 
+ */
 import React, { useState } from 'react';
 import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import CheckBoxTableHeader from './CheckBoxTableHeader';
@@ -72,8 +76,7 @@ const CheckBoxTable = ({headerProps, bodyProps, pageProps}) => {
 
         {/* Body */}
         <CheckBoxTableBody {...bodyProps} />
-        {/* <TableFooter>
-        </TableFooter> */}
+
       </Table>
     </TableContainer>
 
