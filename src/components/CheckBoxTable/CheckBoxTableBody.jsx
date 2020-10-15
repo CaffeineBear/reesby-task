@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Checkbox, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 
 const CheckBoxTableBody = props => {
   const { 
@@ -27,13 +28,15 @@ const CheckBoxTableBody = props => {
     <TableBody>
       {viewingData.map((currData, currIndex) => {
         const indexInWholeTable = startingIndex + currIndex;
+        const newChecked = selected[indexInWholeTable];
+        const newKey = uuidv4();
 
-        return (currData && <TableRow key={`ClientRow${indexInWholeTable}`} >
+        return (currData && <TableRow key={`${newKey}`} >
 
           {/* Checkbox */}
-          <TableCell padding="checkbox" key={`ClientRow${indexInWholeTable}-Checkbox`}>
+          <TableCell padding="checkbox" key={`${newKey}-checkbox`} >
             <Checkbox
-              checked={selected[indexInWholeTable]}
+              checked={newChecked}
               onChange={() => { onSelectClick(indexInWholeTable) }}
               inputProps={{ 'aria-label': 'select current client' }}
             />
@@ -41,7 +44,7 @@ const CheckBoxTableBody = props => {
 
           {/* Table Contents */}
           {fieldList.map((currField) => {
-            return (<TableCell key={`ClientRow${indexInWholeTable}-${currField}`} >
+            return (<TableCell key={`${newKey}-${currField}`} >
               {currData[currField]}
             </TableCell>);
           })}

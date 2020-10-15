@@ -2,7 +2,7 @@
  * This is a table component with checkbox at front and optional action button 
  * at the back of each row. 
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import CheckBoxTableHeader from './CheckBoxTableHeader';
 import CheckBoxTableBody from './CheckBoxTableBody';
@@ -19,21 +19,49 @@ const CheckBoxTableContainer = props => {
   const [numSelected, updateNumSelected] = useState(0);
 
   const onSelectClick = (index) => {
+    // if selected array is null (meaning no searching results),
+    // we ignore to update.
+    if(!selected) {
+      return;
+    }
+    
+    // Toggling one checkbox to update both selected and num of selected data.
+    const newBooleanValue = !selected[index];
     updateSelected(prevSelected => {
-      prevSelected[index] = !prevSelected[index];
-      return prevSelected;
+      // deep cloning to avoid any reference issue.
+      const newSelected = JSON.parse(JSON.stringify(prevSelected));
+      newSelected[index] = newBooleanValue;
+      return newSelected;
     });
-    updateNumSelected(prevNumSelected => prevNumSelected + 1);
+    updateNumSelected(prevNumSelected => {
+      if( newBooleanValue ) {
+        return prevNumSelected + 1;
+      } 
+      return prevNumSelected - 1;
+    } );
   }
 
   const onSelectAllClick = () => {
+    // This means it has no searching result or data itself. 
+    // Then we skip updating selected array.
+    if( totalRow === 0 ){
+      return;
+    }
     const toggleSelect = !(numSelected === totalRow);
     updateSelected(new Array(totalRow).fill(toggleSelect));
     updateNumSelected(toggleSelect ? totalRow : 0);
   }
 
+  // if someone used search bar, total row will become 0 if there are no result
+  // So, we also initialize number of selected value back to be zero. 
+  useEffect( () => {
+    if( totalRow === 0) {
+      updateNumSelected(0);
+    }
+  }, [totalRow]);
+
   const headerProps = { 
-    numSelected, totalRow, onSelectAllClick, columnNames, 
+    numSelected, totalRow, onSelectAllClick, columnNames, selected,
     actionExist: (rowActionComponent && typeof onRowActionEvent === 'function')
   };
 
